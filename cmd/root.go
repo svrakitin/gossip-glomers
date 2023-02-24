@@ -7,6 +7,7 @@ import (
 
 	"github.com/spf13/cobra"
 	"github.com/svrakitin/gossip-glomers/cmd/echo"
+	"github.com/svrakitin/gossip-glomers/cmd/uniqueids"
 )
 
 func newRootCmd() *cobra.Command {
@@ -23,6 +24,7 @@ func Execute() error {
 	defer cancel()
 
 	cmd := newRootCmd()
-	cmd.AddCommand(echo.NewRootCmd())
+	cmd.AddCommand(echo.NewCmd())
+	cmd.AddCommand(uniqueids.NewCmd())
 	return cmd.ExecuteContext(signalCtx)
 }

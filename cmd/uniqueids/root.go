@@ -1,24 +1,21 @@
-package echo
+package uniqueids
 
 import (
-	"encoding/json"
-
+	"github.com/google/uuid"
 	maelstrom "github.com/jepsen-io/maelstrom/demo/go"
 	"github.com/spf13/cobra"
 )
 
 func NewCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "echo",
+		Use: "unique-ids",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			node := maelstrom.NewNode()
-			node.Handle("echo", func(msg maelstrom.Message) error {
-				var body map[string]any
-				if err := json.Unmarshal(msg.Body, &body); err != nil {
-					return err
+			node.Handle("generate", func(msg maelstrom.Message) error {
+				body := map[string]any{
+					"type": "generate_ok",
+					"id":   uuid.NewString(),
 				}
-
-				body["type"] = "echo_ok"
 
 				return node.Reply(msg, body)
 			})

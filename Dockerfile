@@ -25,4 +25,6 @@ COPY --from=builder /build/maelstrom-node /opt/gossip-glomers/maelstrom-node
 
 WORKDIR /opt/gossip-glomers/maelstrom
 
+EXPOSE 8080
+
 ENTRYPOINT ["/bin/sh", "maelstrom", "test", "--bin", "/opt/gossip-glomers/maelstrom-node"]
